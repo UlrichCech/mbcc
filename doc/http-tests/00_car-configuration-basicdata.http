@@ -1,0 +1,25 @@
+### CarTypes
+GET http://localhost:8080/api/v1/cars/configurations/basic/cartypes
+Content-Type: application/json
+Accept: application/json
+
+### CarClasses
+GET http://localhost:8080/api/v1/cars/configurations/basic/carclasses
+Content-Type: application/json
+Accept: application/json
+
+### CarEngines
+GET http://localhost:8080/api/v1/cars/configurations/basic/engines
+Content-Type: application/json
+Accept: application/json
+
+### CarColors
+GET http://localhost:8080/api/v1/cars/configurations/basic/colors
+Content-Type: application/json
+Accept: application/json
+
+### SpecialFeatures
+GET http://localhost:8080/api/v1/cars/configurations/basic/specialfeatures
+Content-Type: application/json
+Accept: application/json
+

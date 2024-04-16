@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE resources PUBLIC "-//Payara.fish//DTD Payara Server 4 Resource Definitions//EN" "https://raw.githubusercontent.com/payara/Payara-Server-Documentation/master/schemas/payara-resources_1_6.dtd">
+<resources>
+
+    <jdbc-connection-pool datasource-classname="org.postgresql.ds.PGConnectionPoolDataSource" name="mbcc-pool"
+                          res-type="javax.sql.ConnectionPoolDataSource">
+        <property name="TargetServerType" value="any"/>
+        <property name="BinaryTransfer" value="true"/>
+        <property name="UnknownLength" value="2147483647"/>
+        <property name="DisableColumnSanitiser" value="false"/>
+        <property name="UseSpNego" value="false"/>
+        <property name="SspiServiceClass" value="POSTGRES"/>
+        <property name="ProtocolVersion" value="0"/>
+        <property name="SendBufferSize" value="-1"/>
+        <property name="ReceiveBufferSize" value="-1"/>
+        <property name="LoadBalanceHosts" value="false"/>
+        <property name="ReadOnly" value="false"/>
+        <property name="LogUnclosedConnections" value="false"/>
+        <property name="DatabaseName" value="mbcc"/>
+        <property name="CleanupSavepoints" value="false"/>
+        <property name="GssLib" value="auto"/>
+        <property name="EscapeSyntaxCallMode" value="select"/>
+        <property name="LogServerErrorDetail" value="true"/>
+        <property name="CancelSignalTimeout" value="10"/>
+        <property name="PortNumber" value="5432"/>
+        <property name="DefaultRowFetchSize" value="0"/>
+        <property name="User" value="${ENV=MBCC_DB_USERNAME}"/>
+<!--        <property name="User" value="${ALIAS=MBCC_DB_USERNAME}"/>-->
+        <property name="DatabaseMetadataCacheFieldsMiB" value="5"/>
+        <property name="RecvBufferSize" value="-1"/>
+        <property name="URL" value="jdbc:postgresql://${ENV=MBCC_DB_SERVER_URL}/mbcc"/>
+        <property name="Url" value="jdbc:postgresql://${ENV=MBCC_DB_SERVER_URL}/mbcc"/>
+        <property name="AllowEncodingChanges" value="false"/>
+        <property name="JaasLogin" value="true"/>
+        <property name="PrepareThreshold" value="5"/>
+        <property name="ReWriteBatchedInserts" value="false"/>
+        <property name="HideUnprivilegedObjects" value="false"/>
+        <property name="SocketTimeout" value="0"/>
+        <property name="HostRecheckSeconds" value="10"/>
+        <property name="Password" value="${ENV=MBCC_DB_PASSWORD}"/>
+<!--        <property name="Password" value="${ALIAS=MBCC_DB_PASSWORD}"/>-->
+        <property name="ConnectTimeout" value="10"/>
+        <property name="ApplicationName" value="PostgreSQL JDBC Driver"/>
+        <property name="PreparedStatementCacheQueries" value="256"/>
+        <property name="Ssl" value="false"/>
+        <property name="PreparedStatementCacheSizeMiB" value="5"/>
+        <property name="ReadOnlyMode" value="transaction"/>
+        <property name="LoginTimeout" value="0"/>
+        <property name="ServerName" value="${ENV=MBCC_DB_SERVER}"/>
+        <property name="DatabaseMetadataCacheFields" value="65536"/>
+        <property name="TcpKeepAlive" value="false"/>
+    </jdbc-connection-pool>
+    <jdbc-resource pool-name="mbcc-pool" jndi-name="java:app/jdbc/mbcc"/>
+</resources>

@@ -1,0 +1,12 @@
+### Creating initial new car configuration
+POST http://localhost:8080/api/v1/cars/configurations
+Content-Type: application/json
+Accept: application/json
+
+{
+"userId": "b5a8761d-54a5-492b-b8e4-a5ea56957f16",
+"newConfigurationLabel": "ABCDEF_0001"
+}
+
+<> 2024-04-15T211557.200.json
+<> 2024-04-15T160725.200.json

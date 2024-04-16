@@ -1,0 +1,22 @@
+version: '2.3'
+
+services:
+
+  mbcc-db:
+    image: postgres:16.2
+    container_name: mbcc-db
+    ports:
+      - "5432:5432"
+    networks:
+      - mbcc-net
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${DB_POSTGRES_PASSWORD}
+      POSTGRES_DB: mbcc
+    volumes:
+      - .database/docker/local-dev:/var/lib/postgresql/data
+
+networks:
+  mbcc-net:
+    name: mbcc-net
+    driver: bridge

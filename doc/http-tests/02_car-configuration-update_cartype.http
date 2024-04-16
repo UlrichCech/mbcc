@@ -1,0 +1,16 @@
+### Updating car configuration
+PUT http://localhost:8080/api/v1/cars/configurations/b6f89f83-6f38-45b7-8e8e-3ec8244ca7f4
+Content-Type: application/json
+Accept: application/json
+
+{
+  "userId": "b5a8761d-54a5-492b-b8e4-a5ea56957f16",
+  "configurationId": "b6f89f83-6f38-45b7-8e8e-3ec8244ca7f4",
+  "configurationLabel": "ABCDEF_0001",
+  "configurationDescription": "2024-04-15 00:07",
+  "carTypeId": "d2b4a7d1-a1eb-4eab-b9e2-7acff495579a",
+  "specialFeaturesList":["a197003f-da8b-4009-bc46-b57622bc97f0"]
+}
+
+<> 2024-04-15T211713.200.json
+<> 2024-04-15T160756.200.json

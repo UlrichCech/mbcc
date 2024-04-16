@@ -1,0 +1,4 @@
+### Updating car configuration
+DELETE http://localhost:8080/api/v1/cars/configurations/b6f89f83-6f38-45b7-8e8e-3ec8244ca7f4
+Content-Type: application/json
+Accept: application/json

@@ -1,0 +1,607 @@
+openapi: 3.0.0
+
+info:
+  title: Mercedes Benz Car-Configuration (API)
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/
+    description: Development Server.
+
+
+paths:
+
+  /api/v1/cars/configurations/basic/cartypes:
+    get:
+      tags:
+        - BasicData-Endpoints
+      description: 'Returns all available car-types.'
+      summary: ''
+      security:
+        - jwt: []
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/Accept'
+        - $ref: '#/components/parameters/Accept-Language'
+      responses:
+        200:
+          description: 'All available car-types.'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExternalBasicCarType'
+
+  /api/v1/cars/configurations/basic/carclasses:
+    get:
+      tags:
+        - BasicData-Endpoints
+      description: 'Returns all available car-classes.'
+      summary: ''
+      security:
+        - jwt: []
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/Accept'
+        - $ref: '#/components/parameters/Accept-Language'
+      responses:
+        200:
+          description: 'All available car-classes.'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExternalBasicCarClass'
+
+  /api/v1/cars/configurations/basic/engines:
+    get:
+      tags:
+        - BasicData-Endpoints
+      description: 'Returns all available car-engines.'
+      summary: ''
+      security:
+        - jwt: []
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/Accept'
+        - $ref: '#/components/parameters/Accept-Language'
+      responses:
+        200:
+          description: 'All available car-engines.'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExternalBasicEngine'
+
+  /api/v1/cars/configurations/basic/colors:
+    get:
+      tags:
+        - BasicData-Endpoints
+      description: 'Returns all available colors.'
+      summary: ''
+      security:
+        - jwt: []
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/Accept'
+        - $ref: '#/components/parameters/Accept-Language'
+      responses:
+        200:
+          description: 'All available color values.'
+          headers:
+            Access-Control-Allow-Origin:
+              $ref: '#/components/headers/Access-Control-Allow-Origin'
+            Access-Control-Allow-Headers:
+              $ref: '#/components/headers/Access-Control-Allow-Headers'
+            Access-Control-Expose-Headers:
+              $ref: '#/components/headers/Access-Control-Expose-Headers'
+            Access-Control-Allow-Credentials:
+              $ref: '#/components/headers/Access-Control-Allow-Credentials'
+            Access-Control-Allow-Methods:
+              $ref: '#/components/headers/Access-Control-Allow-Methods'
+            Access-Control-Max-Age:
+              $ref: '#/components/headers/Access-Control-Max-Age'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalBasicColor'
+
+  /api/v1/cars/configurations/basic/specialfeatures:
+    get:
+      tags:
+        - BasicData-Endpoints
+      description: 'Returns all available special-features.'
+      summary: ''
+      security:
+        - jwt: []
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/Accept'
+        - $ref: '#/components/parameters/Accept-Language'
+      responses:
+        200:
+          description: 'All available special-features.'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExternalBasicCarSpecialFeature'
+
+
+  /api/v1/cars/configurations:
+    post:
+      tags:
+        - CarConfiguration-Endpoints
+      security:
+        - jwt: []
+      summary: 'Creates a new car-configuration object for a given user.'
+      description: ''
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/Accept'
+        - $ref: '#/components/parameters/Accept-Language'
+        - $ref: '#/components/parameters/Content-Type'
+        - $ref: '#/components/parameters/X-Request-ID'
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewCarConfigurationRequest'
+      responses:
+        200:
+          description: 'The resulting (initial) car configuration.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalCarConfiguration'
+
+
+
+  /api/v1/cars/configurations/{configId}:
+    get:
+      tags:
+        - CarConfiguration-Endpoints
+      security:
+        - jwt: [ ]
+      summary: 'Fetches the configuration by ID.'
+      description: ''
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/Accept'
+        - $ref: '#/components/parameters/Accept-Language'
+        - name: configId
+          in: path
+          required: true
+          schema:
+            description: 'The ID of the specified configuration.'
+      responses:
+        200:
+          description: 'The complete car-configuration object.'
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/ExternalCarConfiguration'
+    put:
+      tags:
+        - CarConfiguration-Endpoints
+      security:
+        - jwt: [ ]
+      summary: 'Updates the specific configuration.'
+      description: ''
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/Accept'
+        - $ref: '#/components/parameters/Accept-Language'
+        - name: configId
+          in: path
+          required: true
+          schema:
+            description: 'The ID of the specified configuration.'
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCarConfigurationRequest'
+      responses:
+        200:
+          description: 'The resulting car configuration.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalCarConfiguration'
+    delete:
+      tags:
+        - CarConfiguration-Endpoints
+      security:
+        - jwt: [ ]
+      summary: 'Deletes the specific configuration.'
+      description: ''
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/Accept'
+        - $ref: '#/components/parameters/Accept-Language'
+        - name: configId
+          in: path
+          required: true
+          schema:
+            description: 'The ID of the specified configuration.'
+      responses:
+        200:
+          description: 'The deletion was successful.'
+
+
+  /api/v1/cars/configurations/users/{userId}:
+    get:
+      tags:
+        - CarConfiguration-Endpoints
+      security:
+        - jwt: [ ]
+      summary: 'Fetches all configurations for a specific user.'
+      description: ''
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+        - $ref: '#/components/parameters/Accept'
+        - $ref: '#/components/parameters/Accept-Language'
+        - name: userId
+          in: path
+          required: true
+          schema:
+            description: 'The ID of the user.'
+      responses:
+        200:
+          description: 'The complete car-configuration object.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalCarConfiguration'
+
+
+
+tags:
+  - name: BasicData-Endpoints
+    description: 'Endpoints for basic data.'
+  - name: CarConfiguration-Endpoints
+    description: 'Endpoints for the car-configuration-workflows.'
+
+
+components:
+  securitySchemes:
+    jwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+
+  parameters:
+    Accept:
+      name: Accept
+      in: header
+      required: true
+      schema:
+        type: string
+        enum:
+          - application/json
+
+    Accept-Language:
+      name: Accept-Language
+      in: header
+      schema:
+        description: 'The locale/language setting for this request. Currently, "de-DE" and "en" are supported.'
+        type: string
+
+    Content-Type:
+      name: Content-Type
+      in: header
+      required: true
+      schema:
+        type: string
+        enum:
+          - application/json
+
+    Authorization:
+      name: Authorization
+      in: header
+      schema:
+        type: string
+        description: 'The Bearer token which was generated after successful login.'
+
+    X-Request-ID:
+      name: X-Request-ID
+      in: header
+      required: true
+      schema:
+        type: string
+        format: uuid
+        description: 'This request-ID is checked to block duplicated requests.'
+
+
+  headers:
+
+    Access-Control-Allow-Origin:
+      description: '\*'
+      schema:
+        type: string
+
+    Access-Control-Allow-Headers:
+      description: 'origin, accept, content-type'
+      schema:
+        type: string
+
+    Access-Control-Expose-Headers:
+      description: 'location, info, Authorization'
+      schema:
+        type: string
+
+    Access-Control-Allow-Credentials:
+      description: 'true'
+      schema:
+        type: string
+
+    Access-Control-Allow-Methods:
+      description: 'GET, POST, PUT, DELETE, OPTIONS, HEAD'
+      schema:
+        type: string
+
+    Access-Control-Max-Age:
+      description: '86400'
+      schema:
+        type: integer
+
+
+
+
+  schemas:
+
+    StringList:
+      type: array
+      items:
+        type: string
+
+    ApiErrorStructure:
+      title: 'ApiErrorStructure'
+      type: object
+      properties:
+        genericError:
+          $ref: '#/components/schemas/ApiGenericErrorStructure'
+        validationError:
+          $ref: '#/components/schemas/ApiValidationErrorStructure'
+
+    ApiGenericErrorStructure:
+      title: 'ApiGenericErrorStructure'
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+
+    ApiValidationErrorStructure:
+      title: 'ApiValidationErrorStructure'
+      type: array
+      items:
+        properties:
+          key:
+            type: string
+            description: 'Name of the Frontend-field which has some validation error'
+          value:
+            type: string
+            description: 'Error-Messsage code'
+
+    ExternalBasicCarType:
+      title: 'ExternalBasicCarType'
+      type: object
+      properties:
+        typeId:
+          type: string
+          format: uuid
+        typeLabel:
+          type: string
+        basePrice:
+          type: number
+
+    ExternalBasicCarClass:
+      title: 'ExternalBasicCarClass'
+      type: object
+      properties:
+        classId:
+          type: string
+          format: uuid
+        classLabel:
+          type: string
+        priceIncrement:
+          type: number
+
+    ExternalBasicEngine:
+      title: 'ExternalBasicEngine'
+      type: object
+      properties:
+        engineId:
+          type: string
+          format: uuid
+        engineLabel:
+          type: string
+        kw:
+          type: integer
+        ps:
+          type: integer
+        nm:
+          type: integer
+        umin:
+          type: integer
+        vmax:
+          type: integer
+        priceIncrement:
+          type: number
+
+    ExternalBasicColor:
+      title: 'ExternalBasicColor'
+      type: object
+      properties:
+        colorId:
+          type: string
+          format: uuid
+        colorLabel:
+          type: string
+        colorHexValue:
+          type: string
+        priceIncrement:
+          type: number
+
+    ExternalBasicCarSpecialFeature:
+      title: 'ExternalBasicCarSpecialFeature'
+      type: object
+      properties:
+        featureId:
+          type: string
+          format: uuid
+        featureLabel:
+          type: string
+        priceIncrement:
+          type: number
+
+    NewCarConfigurationRequest:
+        title: 'NewCarConfigurationRequest'
+        type: object
+        properties:
+          userId:
+            type: string
+            format: uuid
+          label:
+            type: string
+          description:
+            type: string
+
+    UpdateCarConfigurationRequest:
+      title: 'UpdateCarConfigurationRequest'
+      type: object
+      properties:
+        userId:
+          type: string
+          format: uuid
+        configurationId:
+          type: string
+          format: uuid
+        configurationLabel:
+          type: string
+        configurationDescription:
+          type: string
+        carTypeId:
+          type: string
+          format: uuid
+        carClassId:
+          type: string
+          format: uuid
+        carEngineId:
+          type: string
+          format: uuid
+        carColorId:
+          type: string
+          format: uuid
+        specialFeaturesList:
+          type: array
+          items:
+            $ref: '#/components/schemas/StringList'
+
+
+    ExternalCarConfiguration:
+      title: 'ExternalCarConfiguration'
+      type: object
+      properties:
+        configurationId:
+          type: string
+          format: uuid
+        userId:
+          type: string
+          format: uuid
+        configurationLabel:
+          type: string
+        configurationDescription:
+          type: string
+        overallPrice:
+          type: number
+        carType:
+          $ref: '#/components/schemas/ExternalCarType'
+        carClass:
+          $ref: '#/components/schemas/ExternalCarClass'
+        carEngine:
+          $ref: '#/components/schemas/ExternalCarEngine'
+        carColor:
+          $ref: '#/components/schemas/ExternalCarColor'
+        specialFeatureList:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExternalCarConfigurationFeature'
+
+    ExternalCarType:
+      title: 'ExternalCarType'
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        label:
+          type: string
+        basePrice:
+          type: number
+
+    ExternalCarClass:
+      title: 'ExternalCarClass'
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        label:
+          type: string
+        priceIncrement:
+          type: number
+
+    ExternalCarEngine:
+      title: 'ExternalCarEngine'
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        label:
+          type: string
+        priceIncrement:
+          type: number
+        kw:
+          type: integer
+        ps:
+          type: integer
+
+    ExternalCarColor:
+      title: 'ExternalCarColor'
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        color:
+          type: string
+        colorHexValue:
+          type: string
+        priceIncrement:
+          type: number
+
+    ExternalCarConfigurationFeature:
+      title: 'ExternalCarConfigurationFeature'
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        specialFeatureLabel:
+          type: string
+        priceIncrement:
+          type: number
