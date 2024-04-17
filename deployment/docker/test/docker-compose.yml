@@ -1,0 +1,43 @@
+version: '2.3'
+
+services:
+
+  mbcc-db-test:
+    image: postgres:16.2
+    container_name: mbcc-db-test
+    ports:
+      - "5432:5432"
+    networks:
+      - mbcc-net-test
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${DB_POSTGRES_PASSWORD}
+      POSTGRES_DB: mbcc
+    volumes:
+      - ./database:/var/lib/postgresql/data
+
+
+  mbcc-server-test:
+    image: ghcr.io/ulrichcech/mbcc
+    container_name: mbcc-server-test
+    ports:
+      - "127.0.0.1:8080:8080"
+    networks:
+      - mbcc-net-test
+    restart: always
+    links:
+      - mbcc-db-test
+    volumes:
+      - ./app-logs:/opt/payara5/glassfish/domains/domain1/logs
+    environment:
+      MBCC_DB_USERNAME: postgres
+      MBCC_DB_PASSWORD: mbcc123456
+      MBCC_DB_SERVER: mbcc-db-test
+      MBCC_DB_SERVER_URL: mbcc-db-test:5432
+      server.base.uri: http://localhost:8080/
+
+
+networks:
+  mbcc-net-test:
+    name: mbcc-net-test
+    driver: bridge
