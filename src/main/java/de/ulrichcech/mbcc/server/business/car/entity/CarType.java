@@ -36,6 +36,15 @@ public class CarType extends PersistentEntity {
     private List<CarTypeEngine> typeEngines = new ArrayList<>();
 
 
+    public CarType() {
+        // JPA
+    }
+
+    public CarType(String typeLabel, BigDecimal basePrice) {
+        this.typeLabel = typeLabel;
+        this.basePrice = basePrice;
+    }
+
 
     public String getTypeLabel() {
         return typeLabel;

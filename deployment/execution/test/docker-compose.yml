@@ -14,7 +14,7 @@ services:
       POSTGRES_PASSWORD: ${DB_POSTGRES_PASSWORD}
       POSTGRES_DB: mbcc
     volumes:
-      - ./database:/var/lib/postgresql/data
+      - .database:/var/lib/postgresql/data
 
 
   mbcc-server-test:

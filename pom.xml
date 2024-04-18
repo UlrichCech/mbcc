@@ -130,46 +130,27 @@
             <version>2.2.224</version>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>5.11.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-inline</artifactId>
+            <version>5.2.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
         <finalName>mb-car-configurator-server</finalName>
         <plugins>
-<!--            <plugin>-->
-<!--                <groupId>org.codehaus.mojo</groupId>-->
-<!--                <artifactId>buildnumber-maven-plugin</artifactId>-->
-<!--                <version>3.2.0</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <phase>generate-resources</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>create-metadata</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--                <configuration>-->
-<!--                    <attach>true</attach>-->
-<!--                    <addOutputDirectoryToResources>true</addOutputDirectoryToResources>-->
-<!--                    <shortRevisionLength>5</shortRevisionLength>-->
-<!--                    <doCheck>true</doCheck>-->
-<!--                    <doUpdate>true</doUpdate>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.4.0</version>
-<!--                <configuration>-->
-<!--                    <archive>-->
-<!--                        <manifest>-->
-<!--                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>-->
-<!--                        </manifest>-->
-<!--                        <manifestEntries>-->
-<!--                            <Implementation-Build>${buildNumber}</Implementation-Build>-->
-<!--                        </manifestEntries>-->
-<!--                    </archive>-->
-<!--                </configuration>-->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -180,6 +161,48 @@
                         <include>**/*Test.java</include>
                     </includes>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.1.2</version>
+                <configuration>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
+                    <!--                    <runOrder>alphabetical</runOrder>-->
+                    <forkCount>1</forkCount>
+                    <!--                    <reuseForks>true</reuseForks>-->
+                    <excludes>
+                        <exclude>**/*IT.java</exclude>
+                    </excludes>
+                    <disableXmlReport>false</disableXmlReport>
+                    <!--suppress UnresolvedMavenProperty -->
+                    <argLine>-Duser.language=en -Duser.country=US</argLine>
+                    <!--                    <argLine>${surefireArgLine} -Xmx1024m &#45;&#45;illegal-access=permit</argLine> &lt;!&ndash; IMPORTANT !!! &ndash;&gt;-->
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>3.2.5</version>
+                <executions>
+                    <execution>
+                        <id>integration-tests</id>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                        <configuration>
+                            <includes>
+                                <include>**/*IT.java</include>
+                            </includes>
+                            <reuseForks>true</reuseForks>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
